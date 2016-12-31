@@ -1,0 +1,15 @@
+[Unit]
+Description=gohealth check server
+# Documentation=man:firewalld(1)
+
+
+[Service]
+ExecStart=/usr/local/bin/gohealthcheck
+Type=simple
+# ExecReload=/bin/kill -HUP $MAINPID
+# StandardOutput=null
+# StandardError=null
+
+
+[Install]
+WantedBy = multi-user.target
