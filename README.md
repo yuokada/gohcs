@@ -1,5 +1,8 @@
 # gohealthcheck
 
+## Overview
+
+This server returns 200 OK when "/status.html" is in the document root and they are listened a particular port on tcp/udp.
 
 ## How to use
 
