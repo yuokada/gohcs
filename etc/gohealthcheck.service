@@ -1,15 +1,18 @@
 [Unit]
-Description=gohealth check server
-# Documentation=man:firewalld(1)
-
+Description=go health check server
+Documentation=https://github.com/yuokada/gohealthcheck
 
 [Service]
-ExecStart=/usr/local/bin/gohealthcheck
+ExecStart=/usr/local/bin/gohealthcheck -checklist /etc/gohealthcheck/checklist.json \
+          -docroot /var/run/gohealthcheck
 Type=simple
+Restart=always
+RestartSec=30s
+User=root
+Group=root
 # ExecReload=/bin/kill -HUP $MAINPID
 # StandardOutput=null
 # StandardError=null
-
 
 [Install]
 WantedBy = multi-user.target
