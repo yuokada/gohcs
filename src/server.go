@@ -9,6 +9,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 )
 
 var (
@@ -80,6 +81,8 @@ func init() {
 		}
 	} else {
 		log.Printf("Please pass checklist filepath\n")
+		flag.Usage()
+		os.Exit(1)
 	}
 }
 
