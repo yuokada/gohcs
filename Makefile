@@ -19,5 +19,5 @@ install: build
 	install -o root -g root -m 0775 -d /etc/gohcs
 	# copy files
 	install -o root -g root -m 0755 src/gohcs /usr/local/bin/gohcs
-	install -o root -g root -m 0644 etc/gohcs.conf /etc/tmpfiles.d/gohcheck.conf
+	install -o root -g root -m 0644 etc/gohcs.conf /etc/tmpfiles.d/gohcs.conf
 	install -o root -g root -m 0644 etc/gohcs.service /etc/systemd/system/gohcs.service
