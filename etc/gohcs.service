@@ -1,10 +1,10 @@
 [Unit]
 Description=go health check server
-Documentation=https://github.com/yuokada/gohealthcheck
+Documentation=https://github.com/yuokada/gohcs
 
 [Service]
-ExecStart=/usr/local/bin/gohealthcheck -checklist /etc/gohealthcheck/checklist.json \
-          -docroot /var/run/gohealthcheck
+ExecStart=/usr/local/bin/gohcs -checklist /etc/gohcs/checklist.json \
+          -docroot /var/run/gohcs
 Type=simple
 Restart=always
 RestartSec=30s

@@ -6,7 +6,7 @@ goget:
 	@GOPATH=$(GOPATH) go get github.com/pkg/errors
 
 build: goget
-	cd src && GOPATH=$(GOPATH) go build -o gohealthcheck
+	cd src && GOPATH=$(GOPATH) go build -o gohcs
 
 install: build
 	# UNAME := $(shell uname)
@@ -14,6 +14,10 @@ install: build
 	# 	echo "install process"
 	# endif
 	@echo "install phase"
-	install -o root -g root -m 0755 src/gohealthcheck /usr/local/bin/gohealthcheck
-	install -o root -g root -m 0644 etc/gohealthcheck.conf /etc/tmpfiles.d/gohcheck.conf
-  install -o root -g root -m 0644 etc/gohealthcheck.service /etc/systemd/system/gohealthcheck.service
+	# make directories
+	install -o root -g root -m 0775 -d /var/run/gohcs
+	install -o root -g root -m 0775 -d /etc/gohcs
+	# copy files
+	install -o root -g root -m 0755 src/gohcs /usr/local/bin/gohcs
+	install -o root -g root -m 0644 etc/gohcs.conf /etc/tmpfiles.d/gohcs.conf
+	install -o root -g root -m 0644 etc/gohcs.service /etc/systemd/system/gohcs.service
