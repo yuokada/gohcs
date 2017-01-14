@@ -1,4 +1,4 @@
-# gohealthcheck
+# gohcs
 
 ## Overview
 
@@ -9,7 +9,7 @@ This server returns 200 OK when "/status.html" is in the document root and they 
 ### run server
 
 ```
-$ ./gohealthcheck  -checklist /path/to/checklist.json
+$ ./gohcs  -checklist /path/to/checklist.json
 ```
 
 ## configfile
