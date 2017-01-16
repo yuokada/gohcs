@@ -26,6 +26,10 @@ server checklist
 ]
 ```
 
+## dependencies
+
+- [pkg/errors: Simple error handling primitives](https://github.com/pkg/errors)
+
 ## LICENSE
 
 MIT licensed. See the LICENSE file for details.
