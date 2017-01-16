@@ -32,4 +32,5 @@ _testmain.go
 vendor/
 
 .go/src
-src/gohealthcheck
+src/gohcs
+rpmbuild
