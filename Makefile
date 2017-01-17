@@ -24,6 +24,7 @@ install:
 
 	install -o ${USER} -g ${GROUP} -m 0644 etc/tmpfiles.d/gohcs.conf    ${PREFIX}/etc/tmpfiles.d/gohcs.conf
 	install -o ${USER} -g ${GROUP} -m 0644 etc/systemd/system/gohcs.service ${PREFIX}/etc/systemd/system/gohcs.service
+	install -o ${USER} -g ${GROUP} -m 0644 etc/gohcs/checklist.json     ${PREFIX}/etc/gohcs/checklist.json
 
 rpm:
 	/bin/bash ./buildrpm.sh
