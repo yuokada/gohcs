@@ -25,5 +25,5 @@ ARCHIVE_DIR=${WORK_DIR}/${BUILD_NAME}
 /bin/mv ${BUILD_TAR} ${BUILD_TAR_PATH}
 
 
-/usr/bin/rpmbuild --define "release ${BUILD_NUMBER}" --define "_topdir ${BUILD_DIR}" -bb ${BUILD_SPEC}
+/usr/bin/rpmbuild --define "release ${BUILD_NUMBER}%{?dist}" --define "_topdir ${BUILD_DIR}" -bb ${BUILD_SPEC}
 

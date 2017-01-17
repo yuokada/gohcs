@@ -4,8 +4,9 @@
 %define debug_package %{nil}
 
 Name:      gohcs
-Version:   1.1.0
-Release:   %{release}%{?dist}
+Version:   1.1.2
+Release:   %{release}
+#Release:   1%{?dist}
 Group:     abc
 License:   MIT
 URL:       https://github.com/yuokada/gohcs
