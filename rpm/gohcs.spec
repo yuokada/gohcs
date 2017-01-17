@@ -4,7 +4,7 @@
 %define debug_package %{nil}
 
 Name:      gohcs
-Version:   1.0.0
+Version:   1.0.2
 Release:   %{release}%{?dist}
 Group:     abc
 License:   MIT
@@ -38,7 +38,11 @@ make build
 
 %install
 rm   -rf      %{INSTALLDIR}
-make install PREFIX=%{INSTALLDIR}
+mkdir -p %{buildroot}/var/run/gohcs
+mkdir -p %{buildroot}/etc/gohcs
+%{__install} -Dp -m0755 src/gohcs                        %{buildroot}/usr/local/bin/%{name}
+%{__install} -Dp -m0644 etc/tmpfiles.d/gohcs.conf        %{buildroot}/etc/tmpfiles.d/gohcs.conf
+%{__install} -Dp -m0644 etc/systemd/system/gohcs.service %{buildroot}/etc/systemd/system/gohcs.service
 
 # Instructions to clean out the build root.
 %clean
