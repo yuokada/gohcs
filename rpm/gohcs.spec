@@ -4,7 +4,7 @@
 %define debug_package %{nil}
 
 Name:      gohcs
-Version:   1.0.2
+Version:   1.1.0
 Release:   %{release}%{?dist}
 Group:     abc
 License:   MIT
@@ -54,7 +54,7 @@ mkdir -p %{buildroot}/etc/gohcs
 %files
 %defattr(0644,root,root)
 %{prefix}/etc/systemd/system/gohcs.service
-%{prefix}/etc/tmpfiles.d//gohcs.conf
+%{prefix}/etc/tmpfiles.d/gohcs.conf
 %config %{prefix}/etc/gohcs/checklist.json
 
 # ## auto include child files under the directory
