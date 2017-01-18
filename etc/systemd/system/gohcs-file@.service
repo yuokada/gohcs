@@ -1,0 +1,12 @@
+[Unit]
+Description=go health check server status file @%i.html
+Documentation=https://github.com/yuokada/gohcs
+
+[Service]
+ExecStart=/bin/bash -c "/usr/bin/echo OK > /var/run/gohcs/%i.html"
+Type=oneshot
+User=root
+Group=root
+
+[Install]
+WantedBy = multi-user.target

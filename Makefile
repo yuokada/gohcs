@@ -12,14 +12,14 @@ goget:
 build: goget
 	cd src && GOPATH=$(GOPATH) go build -o gohcs
 
-install: 
+install:
 	@echo "install phase"
 	install -o ${USER} -g ${GROUP} -m 0775 -d ${PREFIX}/var/run/gohcs
 	install -o ${USER} -g ${GROUP} -m 0775 -d ${PREFIX}/etc/gohcs
 	install -o ${USER} -g ${GROUP} -m 0775 -d ${PREFIX}/etc/tmpfiles.d
 	install -o ${USER} -g ${GROUP} -m 0775 -d ${PREFIX}/etc/systemd/system/
 	install -o ${USER} -g ${GROUP} -m 0775 -d ${PREFIX}/usr/local/bin
-	
+
 	install -o ${USER} -g ${GROUP} -m 0755 src/gohcs         ${PREFIX}/usr/local/bin/gohcs
 
 	install -o ${USER} -g ${GROUP} -m 0644 etc/tmpfiles.d/gohcs.conf    ${PREFIX}/etc/tmpfiles.d/gohcs.conf
