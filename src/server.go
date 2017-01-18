@@ -96,10 +96,10 @@ func main() {
 		}
 	}()
 
-	// serve /status.html
 	handler := CheckAndServerHandler(
 		http.FileServer(http.Dir(docroot)), checkServer, targetList)
-	mux.Handle("/status.html", handler)
+	// mux.Handle("/status.html", handler)
+	mux.Handle("/", handler)
 
 	fmt.Printf("Listing port %d\n", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", port), mux)

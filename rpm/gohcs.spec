@@ -4,7 +4,7 @@
 %define debug_package %{nil}
 
 Name:      gohcs
-Version:   1.1.2
+Version:   1.2.0
 Release:   %{release}
 #Release:   1%{?dist}
 Group:     abc
@@ -18,7 +18,7 @@ Source0:   gohcs.tar.gz
 Prefix:    /
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires: glibc
-BuildRequires: golang >= 1.6.3
+BuildRequires: golang
 
 #%define INSTALLDIR %{buildroot}/gohcs
 %define INSTALLDIR %{buildroot}
@@ -41,10 +41,11 @@ make build
 rm   -rf      %{INSTALLDIR}
 mkdir -p %{buildroot}/var/run/gohcs
 mkdir -p %{buildroot}/etc/gohcs
-%{__install} -Dp -m0755 src/gohcs                        %{buildroot}/usr/local/bin/%{name}
-%{__install} -Dp -m0644 etc/tmpfiles.d/gohcs.conf        %{buildroot}/etc/tmpfiles.d/gohcs.conf
-%{__install} -Dp -m0644 etc/systemd/system/gohcs.service %{buildroot}/etc/systemd/system/gohcs.service
-%{__install} -Dp -m0644 etc/gohcs/checklist.json         %{buildroot}/etc/gohcs/checklist.json
+%{__install} -Dp -m0755 src/gohcs                              %{buildroot}/usr/local/bin/%{name}
+%{__install} -Dp -m0644 etc/tmpfiles.d/gohcs.conf              %{buildroot}/etc/tmpfiles.d/gohcs.conf
+%{__install} -Dp -m0644 etc/systemd/system/gohcs.service       %{buildroot}/etc/systemd/system/gohcs.service
+%{__install} -Dp -m0644 etc/systemd/system/gohcs-file@.service %{buildroot}/etc/systemd/system/gohcs-file@.service
+%{__install} -Dp -m0644 etc/gohcs/checklist.json               %{buildroot}/etc/gohcs/checklist.json
 
 # Instructions to clean out the build root.
 %clean
@@ -54,8 +55,9 @@ mkdir -p %{buildroot}/etc/gohcs
 
 %files
 %defattr(0644,root,root)
-%{prefix}/etc/systemd/system/gohcs.service
-%{prefix}/etc/tmpfiles.d/gohcs.conf
+%config %{prefix}/etc/systemd/system/gohcs.service
+%config %{prefix}/etc/systemd/system/gohcs-file@.service
+%config %{prefix}/etc/tmpfiles.d/gohcs.conf
 %config %{prefix}/etc/gohcs/checklist.json
 
 # ## auto include child files under the directory
@@ -88,4 +90,3 @@ fi
 %changelog
 * Mon Jan 16 2017 yuokada
 - initial release
-

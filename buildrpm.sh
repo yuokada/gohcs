@@ -13,11 +13,12 @@ ARCHIVE_DIR=${WORK_DIR}/${BUILD_NAME}
 /bin/mkdir -p ${BUILD_DIR}/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 
 /bin/mkdir -p ${ARCHIVE_DIR}{/etc/systemd/system/,/etc/tmpfiles.d/,/etc/gohcs,/var/run/gohcs,/src}
-/bin/cp  ./etc/tmpfiles.d/gohcs.conf        ${ARCHIVE_DIR}/etc/tmpfiles.d/
-/bin/cp  ./etc/systemd/system/gohcs.service ${ARCHIVE_DIR}/etc/systemd/system/
-/bin/cp  ./etc/checklist.json               ${ARCHIVE_DIR}/etc/gohcs/checklist.json
-/bin/cp  ./src/server.go                    ${ARCHIVE_DIR}/src
-/bin/cp  ./Makefile                         ${ARCHIVE_DIR}/
+/bin/cp  ./etc/tmpfiles.d/gohcs.conf              ${ARCHIVE_DIR}/etc/tmpfiles.d/
+/bin/cp  ./etc/systemd/system/gohcs.service       ${ARCHIVE_DIR}/etc/systemd/system/
+/bin/cp  ./etc/systemd/system/gohcs-file@.service ${ARCHIVE_DIR}/etc/systemd/system/
+/bin/cp  ./etc/checklist.json                     ${ARCHIVE_DIR}/etc/gohcs/checklist.json
+/bin/cp  ./src/server.go                          ${ARCHIVE_DIR}/src
+/bin/cp  ./Makefile                               ${ARCHIVE_DIR}/
 /bin/tar czvf ${BUILD_TAR} gohcs/
 /bin/rm  -rf gohcs
 
@@ -26,4 +27,3 @@ ARCHIVE_DIR=${WORK_DIR}/${BUILD_NAME}
 
 
 /usr/bin/rpmbuild --define "release ${BUILD_NUMBER}%{?dist}" --define "_topdir ${BUILD_DIR}" -bb ${BUILD_SPEC}
-
