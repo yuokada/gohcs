@@ -1,0 +1,6 @@
+[Unit]
+Description=put status files for health check.
+Requires=gohcs-file@gslb.service gohcs-file@status.service
+
+[Install]
+WantedBy = multi-user.target

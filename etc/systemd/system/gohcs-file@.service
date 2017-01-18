@@ -4,7 +4,9 @@ Documentation=https://github.com/yuokada/gohcs
 
 [Service]
 ExecStart=/bin/bash -c "/usr/bin/echo OK > /var/run/gohcs/%i.html"
+ExecStop=/bin/bash  -c "/usr/bin/rm -f /var/run/gohcs/%i.html"
 Type=oneshot
+RemainAfterExit=yes
 User=root
 Group=root
 
