@@ -19,11 +19,10 @@ ARCHIVE_DIR=${WORK_DIR}/${BUILD_NAME}
 /bin/cp  ./etc/checklist.json                     ${ARCHIVE_DIR}/etc/gohcs/checklist.json
 /bin/cp  ./src/server.go                          ${ARCHIVE_DIR}/src
 /bin/cp  ./Makefile                               ${ARCHIVE_DIR}/
-/bin/tar czvf ${BUILD_TAR} gohcs/
-/bin/rm  -rf gohcs
+/bin/tar czvf ${BUILD_TAR} `basename ${ARCHIVE_DIR}`/
+/bin/rm  -rf `basename ${ARCHIVE_DIR}`
 
 #/usr/bin/wget https://github.com/yuokada/gohcs/archive/master.tar.gz -O ${BUILD_TAR}
 /bin/mv ${BUILD_TAR} ${BUILD_TAR_PATH}
-
 
 /usr/bin/rpmbuild --define "release ${BUILD_NUMBER}%{?dist}" --define "_topdir ${BUILD_DIR}" -bb ${BUILD_SPEC}
