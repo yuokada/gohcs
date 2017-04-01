@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/pkg/errors"
 	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
 	"os"
+
+	"github.com/pkg/errors"
 )
 
 var (
