@@ -8,5 +8,6 @@ go:
     - tip
 
 script:
+    - go get -u github.com/golang/dep/...
     - go get github.com/pkg/errors
     - go test -cover -v ./...
