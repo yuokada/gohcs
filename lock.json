@@ -1,10 +1,10 @@
 {
-    "memo": "",
+    "memo": "f7db1b345ee42cce150365db7935c7cf7f69543d6f0a0719a2496ac1b3f69b37",
     "projects": [
         {
             "name": "github.com/pkg/errors",
             "branch": "master",
-            "revision": "645ef00459ed84a119197bfb8d8205042c6df63d",
+            "revision": "ff09b135c25aae272398c51a07235b90a75aa4f0",
             "packages": [
                 "."
             ]
