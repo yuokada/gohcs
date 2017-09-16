@@ -24,6 +24,10 @@ type TargetServer struct {
 	network, address string
 }
 
+const (
+	HEADER_SERVER = "gohcs"
+)
+
 func checkServer(targets *[]TargetServer) (bool, error) {
 	for _, t := range *targets {
 		_, err := net.Dial(t.network, t.address)
@@ -43,7 +47,7 @@ func CheckAndServerHandler(f http.Handler,
 		log.Println("Now Checking!!")
 
 		result, err := cf(&targets)
-
+		w.Header().Add("Server", HEADER_SERVER)
 		if result {
 			f.ServeHTTP(w, r)
 		} else {
