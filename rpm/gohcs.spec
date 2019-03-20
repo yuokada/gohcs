@@ -1,6 +1,6 @@
 # Original Version and Article, Special-Thanx to :
 # http://momijiame.tumblr.com/post/32458077768/spec-rpm
-%define         prefix  /
+%define prefix /
 %define debug_package %{nil}
 
 Name:      gohcs
@@ -70,8 +70,6 @@ mkdir -p %{buildroot}/etc/gohcs
 %dir %attr(0755,-,-) /var/run/gohcs
 %dir %attr(0775,-,-) %{prefix}/etc/gohcs
 #%exclude   /Makefile
-#%exclude   /src/gohcs
-#%exclude   /src/server.go
 
 %pre
 if [ "$1" = "1" ]; then
