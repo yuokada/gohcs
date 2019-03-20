@@ -5,11 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net"
 	"net/http"
 	"os"
 
+	"github.com/sirupsen/logrus"
 	"github.com/pkg/errors"
 )
 
@@ -19,6 +19,8 @@ var (
 	checklist  string
 	targetList []TargetServer
 )
+
+var logger = logrus.New()
 
 type TargetServer struct {
 	network, address string
@@ -44,7 +46,7 @@ func CheckAndServerHandler(f http.Handler,
 	cf func(*[]TargetServer) (bool, error),
 	targets []TargetServer) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Now Checking!!")
+		logger.Traceln("Now Checking!!")
 
 		result, err := cf(&targets)
 		w.Header().Add("Server", HEADER_SERVER)
@@ -52,7 +54,10 @@ func CheckAndServerHandler(f http.Handler,
 			f.ServeHTTP(w, r)
 		} else {
 			w.WriteHeader(http.StatusNotFound)
-			fmt.Fprintln(w, err.Error())
+			_, err = fmt.Fprintln(w, err.Error())
+			if err != nil {
+				logger.Error(err.Error())
+			}
 			return
 		}
 	}
@@ -60,21 +65,31 @@ func CheckAndServerHandler(f http.Handler,
 }
 
 func init() {
+	logger.Formatter = new(logrus.JSONFormatter)
+	logger.Out = os.Stderr
+
 	flag.IntVar(&port, "port", 8000, "listen port")
 	flag.StringVar(&docroot, "docroot", "/var/www/html", "Document Root")
 	flag.StringVar(&checklist, "checklist", "", "check list file by json")
+	loglevel := flag.String("loglevel", "warn", "set log level")
 	flag.Parse()
+
+	logLevel, err := logrus.ParseLevel(*loglevel)
+	if err != nil {
+		logger.Fatal(err)
+	}
+	logger.Level = logLevel
 
 	if checklist != "" {
 		var targetObjcts [][]string
 		b, err := ioutil.ReadFile(checklist)
 		if err != nil {
-			log.Fatal(err)
+			logger.Fatal(err)
 		}
 		jerr := json.Unmarshal(b, &targetObjcts)
 		if jerr != nil {
 			jerr = errors.Wrapf(jerr, "Cant't Parse %s", checklist)
-			log.Fatal(jerr)
+			logger.Fatal(jerr)
 		}
 		targetList = make([]TargetServer, 0, len(targetObjcts))
 		for _, vv := range targetObjcts {
@@ -85,7 +100,7 @@ func init() {
 			targetList = append(targetList, obj)
 		}
 	} else {
-		log.Printf("Please pass checklist filepath\n")
+		logger.Error("Please pass checklist filepath")
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -109,6 +124,6 @@ func main() {
 	fmt.Printf("Listing port %d\n", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", port), mux)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 }
