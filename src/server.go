@@ -9,13 +9,13 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/sirupsen/logrus"
 	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 )
 
 var (
 	port       int
-	docroot    string
+	docRoot    string
 	checklist  string
 	targetList []TargetServer
 )
@@ -69,7 +69,7 @@ func init() {
 	logger.Out = os.Stderr
 
 	flag.IntVar(&port, "port", 8000, "listen port")
-	flag.StringVar(&docroot, "docroot", "/var/www/html", "Document Root")
+	flag.StringVar(&docRoot, "docroot", "/var/run/gohcs", "Document Root")
 	flag.StringVar(&checklist, "checklist", "", "check list file by json")
 	loglevel := flag.String("loglevel", "warn", "set log level")
 	flag.Parse()
@@ -82,14 +82,13 @@ func init() {
 
 	if checklist != "" {
 		var targetObjcts [][]string
-		b, err := ioutil.ReadFile(checklist)
-		if err != nil {
+		var b []byte
+		if b, err = ioutil.ReadFile(checklist); err != nil {
 			logger.Fatal(err)
 		}
-		jerr := json.Unmarshal(b, &targetObjcts)
-		if jerr != nil {
-			jerr = errors.Wrapf(jerr, "Cant't Parse %s", checklist)
-			logger.Fatal(jerr)
+		if err := json.Unmarshal(b, &targetObjcts); err != nil {
+			err = errors.Wrapf(err, "Cant't Parse %s", checklist)
+			logger.Fatal(err)
 		}
 		targetList = make([]TargetServer, 0, len(targetObjcts))
 		for _, vv := range targetObjcts {
@@ -112,18 +111,17 @@ func main() {
 	func() {
 		paths := []string{"/favicon.ico"}
 		for _, p := range paths {
-			mux.Handle(p, http.FileServer(http.Dir(docroot)))
+			mux.Handle(p, http.FileServer(http.Dir(docRoot)))
 		}
 	}()
 
 	handler := CheckAndServerHandler(
-		http.FileServer(http.Dir(docroot)), checkServer, targetList)
+		http.FileServer(http.Dir(docRoot)), checkServer, targetList)
 	// mux.Handle("/status.html", handler)
 	mux.Handle("/", handler)
 
 	fmt.Printf("Listing port %d\n", port)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), mux)
-	if err != nil {
+	if err := http.ListenAndServe(fmt.Sprintf(":%d", port), mux); err != nil {
 		logger.Fatal(err)
 	}
 }
