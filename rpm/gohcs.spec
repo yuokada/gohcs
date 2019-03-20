@@ -43,8 +43,8 @@ mkdir -p %{buildroot}/var/run/gohcs
 mkdir -p %{buildroot}/etc/gohcs
 %{__install} -Dp -m0755 src/gohcs                              %{buildroot}/usr/local/bin/%{name}
 %{__install} -Dp -m0644 etc/tmpfiles.d/gohcs.conf              %{buildroot}/etc/tmpfiles.d/gohcs.conf
-%{__install} -Dp -m0644 etc/systemd/system/gohcs.service       %{buildroot}/etc/systemd/system/gohcs.service
-%{__install} -Dp -m0644 etc/systemd/system/gohcs-file@.service %{buildroot}/etc/systemd/system/gohcs-file@.service
+%{__install} -Dp -m0644 etc/systemd/system/gohcs.service       %{buildroot}/usr/lib/systemd/system/gohcs.service
+%{__install} -Dp -m0644 etc/systemd/system/gohcs-file@.service %{buildroot}/usr/lib/systemd/system/gohcs-file@.service
 %{__install} -Dp -m0644 etc/gohcs/checklist.json               %{buildroot}/etc/gohcs/checklist.json
 
 # Instructions to clean out the build root.
@@ -55,8 +55,8 @@ mkdir -p %{buildroot}/etc/gohcs
 
 %files
 %defattr(0644,root,root)
-%config %{prefix}/etc/systemd/system/gohcs.service
-%config %{prefix}/etc/systemd/system/gohcs-file@.service
+%config %{prefix}/usr/lib/systemd/system/gohcs.service
+%config %{prefix}/usr/lib/systemd/system/gohcs-file@.service
 %config %{prefix}/etc/tmpfiles.d/gohcs.conf
 %config %{prefix}/etc/gohcs/checklist.json
 
