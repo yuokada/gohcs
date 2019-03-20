@@ -29,6 +29,7 @@ server checklist
 ## dependencies
 
 - [pkg/errors: Simple error handling primitives](https://github.com/pkg/errors)
+- [sirupsen/logrus: Structured, pluggable logging for Go.](https://github.com/sirupsen/logrus "sirupsen/logrus: Structured, pluggable logging for Go.")
 
 ## LICENSE
 

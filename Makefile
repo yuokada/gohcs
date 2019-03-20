@@ -8,6 +8,7 @@ GROUP=$(shell groups)
 goget:
 	@# echo $(GOPATH)
 	@GOPATH=$(GOPATH) go get github.com/pkg/errors
+	@GOPATH=$(GOPATH) go get github.com/sirupsen/logrus
 
 build: goget
 	cd src && GOPATH=$(GOPATH) go build -o gohcs

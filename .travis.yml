@@ -10,4 +10,5 @@ go:
 
 script:
     - go get github.com/pkg/errors
+    - go get github.com/sirupsen/logrus
     - go test -cover -v ./...
