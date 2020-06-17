@@ -5,6 +5,8 @@ USER=$(shell whoami)
 GROUP=$(shell groups)
 .PHONY: rpm
 
+export GO111MODULE=on
+
 goget:
 	@# echo $(GOPATH)
 	@GOPATH=$(GOPATH) go get github.com/pkg/errors
