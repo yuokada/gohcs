@@ -1,4 +1,4 @@
-# gohcs
+# gohcs ![CI](https://github.com/yuokada/gohcs/actions/workflows/ci.yml/badge.svg)
 
 ## Overview
 
